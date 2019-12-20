@@ -1,0 +1,145 @@
+﻿
+@{
+    ViewData["Title"] = "Print";
+    Layout = "~/Areas/Student/Views/Shared/StudentLayout.cshtml";
+}
+<style>
+    .btn {
+        cursor: pointer;
+        font-size: 14px;
+    }
+    #content-wrapper{
+        font-family:'Times New Roman', Arial;
+    }
+    
+</style>
+
+
+<div class="row" id="content-wrapper">
+    <div class="col-xl-12" >
+        <div style="margin-bottom: 20px; margin-top: 0;">
+            <button type="button" id="export" class="btn btn-success"  style="margin-right:20px; margin-left: 20px" onclick="Export2Doc('print-area', 'html-content')"><i class="far fa-save"></i> Xuất kết quả ra word</button>
+            <button type="button" id="download" class="btn btn-info" onclick="printDiv('print-area')"><i class="fas fa-print"></i> In kết quả</button>
+        </div>
+        <div id="print-area" style="margin-left: 10px;">
+            <table style="width: 100%; border: none; border-collapse: collapse;">
+                <tr>
+                    <td style="width: 40%; text-align: center; vertical-align: top;">
+                        <p style="text-transform: uppercase; font-weight: normal; margin: 0; padding: 0; font-size: 12pt;">ĐẠI HỌC QUỐC GIA HÀ NỘI</p>
+                        <p style="text-transform:uppercase; margin: 0; padding: 0; font-size:12pt; font-weight:bold;">TRƯỜNG ĐẠI HỌC C&#212;NG NGHỆ</p>
+                    </td>
+                    <td style="width: 60%; text-align: center; vertical-align: top;">
+                        <p style="text-transform: uppercase; font-weight: bold; margin: 0; padding: 0; font-size: 12pt;">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</p>
+                        <p style="margin: 0; padding: 0; font-weight: bold;">Độc lập - Tự do - Hạnh phúc</p>
+                    </td>
+                </tr>
+            </table>
+            <h1 style="text-align: center; text-transform: uppercase; font-weight: bold; font-size: 14pt; margin: 30px 0 0 0; padding: 0;">KẾT QUẢ ĐĂNG KÝ THI - HỌC KỲ 1 NĂM HỌC 2019-2020</h1>
+            <p style="text-align: center; font-weight: bold; margin: 0; padding: 0; font-size: 14pt;">
+                Ngày 9 tháng 11 năm 2019
+            </p>
+            <table style="width: 100%; border: none; border-collapse: collapse; margin-top: 30px;">
+                <tr>
+                    <td>Họ và tên</td>
+                    <td><b>Đặng Như Quỳnh</b></td>
+                    <td>Ngày sinh</td>
+                    <td><b>09/02/1999</b></td>
+                    <td>Mã sinh viên</td>
+                    <td><b>17020994</b></td>
+                </tr>
+                <tr>
+                    <td>Chương trình đào tạo</td>
+                    <td><b>Công nghệ Thông tin</b></td>
+                    <td>Khóa</td>
+                    <td><b>QH-2017-I/CQ</b></td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+            </table>
+            <br />
+            <table style="border:none; width: 100%; border-collapse:collapse;">
+
+                <tr>
+                    <th style="border-top:1px solid #000; border-left:1px solid #000; text-align:center;">STT</th>
+                    <th style="border-top: 1px solid #000; border-left: 1px solid #000; text-align: center;">Môn thi</th>
+                    <th style="border-top: 1px solid #000; border-left: 1px solid #000; text-align: center;">Số tín chỉ</th>
+                    <th style="border-top: 1px solid #000; border-left: 1px solid #000; text-align: center;">Lớp môn học</th>
+                    <th style="border-top: 1px solid #000; border-left: 1px solid #000; text-align: center;">Phòng thi</th>
+                    <th style="border-top: 1px solid #000; border-left: 1px solid #000; text-align: center;">Số máy</th>
+                    <th style="border-top: 1px solid #000; border-left: 1px solid #000; text-align: center;">Ca thi</th>
+                    <th style="border-top: 1px solid #000; border-left: 1px solid #000; border-right:1px solid #000; text-align: center;">Ngày thi</th>
+                </tr>
+                <tr>
+                    <td style="border-top: 1px solid #000; border-left: 1px solid #000; text-align: center;">1</td>
+                    <td style="border-top:1px solid #000; border-left:1px solid #000; text-align:center;">Đại số</td>
+                    <td style="border-top:1px solid #000; border-left:1px solid #000;text-align: center;">3</td>
+                    <td style="border-top: 1px solid #000; border-left: 1px solid #000;">MAT3202 6</td>
+                    <td style="border-top: 1px solid #000; border-left: 1px solid #000; text-align: center;">308-G2</td>
+                    <td style="border-top: 1px solid #000; border-left: 1px solid #000; text-align: center;">30</td>
+                    <td style="border-top: 1px solid #000; border-left: 1px solid #000; text-align: center;">1</td>
+                    <td style="border-top: 1px solid #000; border-left: 1px solid #000; border-right: 1px solid #000; text-align: center;">30/10/2019</td>
+                </tr>
+                <tr>
+                    <td style="border-top: 1px solid #000; border-left: 1px solid #000; text-align: center;">1</td>
+                    <td style="border-top:1px solid #000; border-left:1px solid #000; text-align:center;">Đại số</td>
+                    <td style="border-top:1px solid #000; border-left:1px solid #000;text-align: center;">3</td>
+                    <td style="border-top: 1px solid #000; border-left: 1px solid #000;">MAT3202 6</td>
+                    <td style="border-top: 1px solid #000; border-left: 1px solid #000; text-align: center;">308-G2</td>
+                    <td style="border-top: 1px solid #000; border-left: 1px solid #000; text-align: center;">30</td>
+                    <td style="border-top: 1px solid #000; border-left: 1px solid #000; text-align: center;">1</td>
+                    <td style="border-top: 1px solid #000; border-left: 1px solid #000; border-right: 1px solid #000; text-align: center;">30/10/2019</td>
+                </tr>
+                <tr>
+                    <td style="border-top: 1px solid #000; border-left: 1px solid #000; text-align: center;">1</td>
+                    <td style="border-top:1px solid #000; border-left:1px solid #000; text-align:center;">Đại số</td>
+                    <td style="border-top:1px solid #000; border-left:1px solid #000;text-align: center;">3</td>
+                    <td style="border-top: 1px solid #000; border-left: 1px solid #000;">MAT3202 6</td>
+                    <td style="border-top: 1px solid #000; border-left: 1px solid #000; text-align: center;">308-G2</td>
+                    <td style="border-top: 1px solid #000; border-left: 1px solid #000; text-align: center;">30</td>
+                    <td style="border-top: 1px solid #000; border-left: 1px solid #000; text-align: center;">1</td>
+                    <td style="border-top: 1px solid #000; border-left: 1px solid #000; border-right: 1px solid #000; text-align: center;">30/10/2019</td>
+                </tr>
+                <tr>
+                    <td style="border-top: 1px solid #000; border-left: 1px solid #000; text-align: center;">1</td>
+                    <td style="border-top:1px solid #000; border-left:1px solid #000; text-align:center;">Đại số</td>
+                    <td style="border-top:1px solid #000; border-left:1px solid #000;text-align: center;">3</td>
+                    <td style="border-top: 1px solid #000; border-left: 1px solid #000;">MAT3202 6</td>
+                    <td style="border-top: 1px solid #000; border-left: 1px solid #000; text-align: center;">308-G2</td>
+                    <td style="border-top: 1px solid #000; border-left: 1px solid #000; text-align: center;">30</td>
+                    <td style="border-top: 1px solid #000; border-left: 1px solid #000; text-align: center;">1</td>
+                    <td style="border-top: 1px solid #000; border-left: 1px solid #000; border-right: 1px solid #000; text-align: center;">30/10/2019</td>
+                </tr>
+                <tr>
+                    <td style="border-top: 1px solid #000; border-left: 1px solid #000; border-bottom:1px solid #000; text-align: center;">&nbsp;</td>
+                    <td style="border-top: 1px solid #000; border-left: 1px solid #000; border-bottom: 1px solid #000; text-align:center;">&nbsp;Tổng</td>
+                    <td style="border-top: 1px solid #000; border-left: 1px solid #000; border-bottom: 1px solid #000; text-align: center; ">18</td>
+                    <td style="border-top: 1px solid #000; border-left: 1px solid #000; border-bottom: 1px solid #000; text-align: center; "></td>
+                    <td style="border-top: 1px solid #000; border-left: 1px solid #000; border-bottom: 1px solid #000; text-align: center; "></td>
+                    <td style="border-top: 1px solid #000; border-left: 1px solid #000; border-bottom: 1px solid #000; text-align: center; "></td>
+                    <td style="border-top: 1px solid #000; border-left: 1px solid #000; border-bottom: 1px solid #000; text-align: center; "></td>
+                    <td style="border-top: 1px solid #000; border-left: 1px solid #000; border-bottom: 1px solid #000; border-right: 1px solid #000; text-align: center; ">&nbsp;</td>
+                </tr>
+
+            </table>
+            <table style="width: 100%; border: none; border-collapse: collapse; margin-top: 30px;">
+                <tr>
+                    <td style="width: 50%; vertical-align: top; text-align: center;">
+                        <p style="font-weight: bold; margin: 0; padding: 0; font-size: 12pt; text-transform:uppercase;">SINH VIÊN</p>
+                        <p style="margin: 0; padding: 0; font-size: 11pt; font-style: italic;">(Ký và ghi rõ họ tên)</p>
+                        <p style="margin-top:80px;"><b>Đặng Như Quỳnh</b></p>
+                    </td>
+                    <td style="width: 50%; text-align: center; vertical-align: top; ">
+                        <p style="font-size: 12pt; margin:0; padding:0;">Hà Nội, ngày ..... tháng ..... năm 2019</p>
+                        <p style="font-weight: bold; margin: 0; padding: 0; text-transform: uppercase; font-size: 12pt;">XÁC NHẬN CỦA PHÒNG ĐÀO TẠO</p>
+                        <p style="font-weight: bold; margin-top: 80px;">&nbsp;</p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="~/js/printAndExport.js"></script>
+
+
+
+

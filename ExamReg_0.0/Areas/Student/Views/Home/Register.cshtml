@@ -1,0 +1,235 @@
+﻿
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Areas/Student/Views/Shared/StudentLayout.cshtml";
+}
+@using ExamReg_0._0.Models
+@model List<AllListTest>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
+<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="~/lib/vendor/jquery/jquery.min.js"></script>
+
+<style>
+
+    .title2 {
+        padding-bottom: 10px;
+        background: #94b8b8;
+        padding: 10px 30px;
+        margin: 10px -25px 10px;
+        border-radius: 3px 3px 0 0;
+        border-top: 1px solid #d9d9d9;
+        border-bottom: 1px solid #d9d9d9;
+    }
+
+    .title {
+        padding-bottom: 10px;
+        background: #dcdcdc;
+        padding: 10px 30px;
+        margin: 10px -25px 10px;
+        border-radius: 3px 3px 0 0;
+        border-top: 1px solid #d9d9d9;
+        border-bottom: 1px solid #d9d9d9;
+    }
+
+        .title span {
+            color: #000000;
+            margin: 6px 0 0;
+            font-size: 20px;
+        }
+
+        .title h6 {
+            float: right;
+            font-size: 13px;
+            color: crimson;
+            margin: 10px 0 0;
+        }
+
+    .fa-trash {
+        color: red;
+    }
+
+    table tr {
+        cursor: pointer;
+        transition: all .25s ease-in-out;
+    }
+
+    .btn {
+        cursor: pointer;
+    }
+
+    #registerTable {
+        counter-reset: tableCount;
+    }
+
+    .counterCell:before {
+        content: counter(tableCount);
+        counter-increment: tableCount;
+    }
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $('#registerTable').DataTable({
+            "scrollX": true,
+            "scrollY": 200,
+            pageLength: 15,
+            ordering: false,
+
+        });
+
+    })
+
+</script>
+<link href="~/css/print.css" rel="stylesheet" />
+<div class="container">
+    <div class="title">
+        <div class="row">
+            <div class="col-sm-6">
+                <i class="fas fa-laptop-code"></i>
+                <span>Đăng ký môn thi</span>
+            </div>
+            <div class="col-sm-6">
+                <h6>Bạn chỉ được đăng ký những môn đủ điều kiện thi</h6>
+            </div>
+        </div>
+    </div>
+    <table id="registerTable" class="table table-hover table-sm" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th scope="col" fieldName="" id="stt">STT</th>
+                <th scope="col" fieldName="subject">Môn thi</th>
+                <th scope="col" fieldName="tc">Phòng thi</th>
+                <th scope="col" fieldName="class">Địa điểm thi</th>
+                <th scope="col" fieldName="examRoom">Ca thi</th>
+                <th scope="col" fieldName="computer">Số máy</th>
+                <th scope="col" fieldName="date">Ngày thi</th>
+            </tr>
+        </thead>
+        <tbody id="listSubjectToJoin">
+            @foreach (AllListTest alt in Model)
+            {
+                var x = alt.ExamDate.ToString().Substring(0, 8);
+                <tr join="1" roomId="@alt.RoomId" subjectId="@alt.SubjectId" testCaseId="@alt.CaseTestId" subjectName="@alt.SubjectName" examOrder="@alt.ExamOrder" date="@alt.ExamDate.ToString("dd-MM-yyyy")" computerNumber="@alt.ComputerNumber" computerCount="@alt.ComputerCount">
+                    <td class="counterCell"></td>
+                    <td>@alt.SubjectName</td>
+                    <td>@alt.RoomOrder</td>
+                    <td>@alt.RoomLocation</td>
+                    @switch (alt.ExamOrder)
+                    {
+                        case 1:
+                            <td>7h-9h</td>
+                            break;
+                        case 2:
+                            <td>9h-11h</td>
+                            break;
+                        case 3:
+                            <td>11h-13h</td>
+                            break;
+                        case 4:
+                            <td>13h-15h</td>
+                            break;
+                        case 5:
+                            <td>15h-17h</td>
+                            break;
+                        case 6:
+                            <td>17h-19h</td>
+                            break;
+
+                    }
+                    <td>@alt.ComputerCount / @alt.ComputerNumber</td>
+                    <td>@alt.ExamDate.ToString("dd-MM-yyyy")</td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div style="margin-top: 20px">
+        <div class="title2">
+            <div class="row">
+                <div class="col-sm-6">
+                    <i class="fa fa-industry"></i>
+                    <span>Danh sách những môn thi đã chọn</span>
+                </div>
+            </div>
+        </div>
+        <table class="table table-striped myDivToPrint" id="tableResult">
+            <thead>
+                <tr>
+                    <th scope="col" fieldName="" id="stt">STT</th>
+                    <th scope="col" fieldName="subject">Môn thi</th>
+                    <th scope="col" fieldName="tc">Phòng thi</th>
+                    <th scope="col" fieldName="class">Địa điểm thi</th>
+                    <th scope="col" fieldName="examRoom">Ca thi</th>
+                    <th scope="col" fieldName="computer">Số máy</th>
+                    <th scope="col" fieldName="date">Ngày thi</th>
+                    <th scope="col" fieldName="cancel">Hủy</th>
+                </tr>
+            </thead>
+            <tbody id="resultofJoin">
+                @foreach (AllListTest alt in Model)
+                {
+                    @if (alt.CaseTestIdIsJoin != 0 && alt.CaseTestIdIsJoin == alt.CaseTestId)
+                    {
+
+                        var x = alt.ExamDate.ToString().Substring(0, 8);
+
+                        <tr roomId="@alt.RoomId" subjectId="@alt.SubjectId" testCaseId="@alt.CaseTestId" subjectName="@alt.SubjectName" examOrder="@alt.ExamOrder" date="@alt.ExamDate.ToString("dd-MM-yyyy")">
+
+                            <td></td>
+                            <td>@alt.SubjectName</td>
+                            <td>@alt.RoomOrder</td>
+                            <td>@alt.RoomLocation</td>
+                            @switch (alt.ExamOrder)
+                            {
+                                case 1:
+                                    <td>7h-9h</td>
+                                    break;
+                                case 2:
+                                    <td>9h-11h</td>
+                                    break;
+                                case 3:
+                                    <td>11h-13h</td>
+                                    break;
+                                case 4:
+                                    <td>13h-15h</td>
+                                    break;
+                                case 5:
+                                    <td>15h-17h</td>
+                                    break;
+                                case 6:
+                                    <td>17h-19h</td>
+                                    break;
+
+                            }
+                            <td>@alt.ComputerCount / @alt.ComputerNumber</td>
+                            <td>
+                                @alt.ExamDate.ToString("dd-MM-yyyy")
+                            </td>
+                            <td><i class="fa fa-trash" id="btn_delete"></i></td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="row" style="margin-top: 30px">
+        <div class="col-sm-8"></div>
+        <div class="col-sm-4">
+            <button id="getalltestcaseid" type="button" class="btn btn-success" style="margin-right:20px"><i class="far fa-save"></i> Ghi nhận</button>
+            <button type="button" id="print" class="btn btn-info"><i class="fas fa-print"></i> Xem và in</button>
+        </div>
+    </div>
+</div>
+<script src="~/js/register.js"></script>
+
+
+
+
+
+
+
+
+

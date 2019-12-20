@@ -1,0 +1,172 @@
+﻿
+@{
+    ViewData["Title"] = "Subject";
+    Layout = "~/Areas/Admin/Views/Shared/AdminLayout.cshtml";
+}
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
+<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="~/lib/vendor/jquery/jquery.min.js"></script>
+@*table style*@
+<link rel="stylesheet" href="~/css/TableStyle.css" />
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("[data-toggle=tooltip]").tooltip();
+        //search items
+        $("#myinput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#classTable tbody tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
+<div class="main">
+    <div class="form-group has-search">
+        <span class="fa fa-search form-control-feedback"></span>
+        <input type="text" class="form-control" placeholder="Tìm kiếm..." id="myinput">
+    </div>
+</div>
+<div class="container">
+
+    <div class="table-wrapper">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h2>Quản lý sinh viên theo lớp</h2>
+                </div>
+                <div class="col-sm-6">
+                    <a href="#addSubjectModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Thêm môn thi bằng Excel</span></a>
+                    <a href="#deleteSubjectModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Xóa</span></a>
+                </div>
+            </div>
+        </div>
+        <div id="jsonObject" class="">
+
+        </div>
+        
+        <table class="table table-striped table-hover" id="classTable" style="text-align:center;">
+
+            <thead>
+                <tr>
+                    <th style="width:50px;">STT</th>
+                    <th style=" width:80px;">Danh sách lớp</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @ViewData["Data"]
+            </tbody>
+        </table>
+        <div class="clearfix">
+            <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
+            <ul class="pagination">
+                <li class="page-item disabled"><a href="#">Previous</a></li>
+                <li class="page-item"><a href="#" class="page-link">1</a></li>
+                <li class="page-item"><a href="#" class="page-link">2</a></li>
+                <li class="page-item active"><a href="#" class="page-link">3</a></li>
+                <li class="page-item"><a href="#" class="page-link">4</a></li>
+                <li class="page-item"><a href="#" class="page-link">5</a></li>
+                <li class="page-item"><a href="#" class="page-link">Next</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Modal HTML -->
+<div id="addSubjectModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form>
+                <div class="modal-header">
+                    <h4 class="modal-title">Thêm môn thi bằng Excel</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Nhập tên lớp</label>
+                        <input type="text" id="className">
+                        <span id="ClassSpan"></span>
+                    </div>
+                    <div class="form-group">
+                        <label>Thêm file</label>
+                        <input type="file" id="fileUploader" name="fileUploader" accept=".xls, .xlsx" />
+                        <span id="FileSpan"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Hủy bỏ">
+                    <input type="button" class="btn btn-success" id="addbyexcel" value="Thêm">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Edit Modal HTML -->
+<div id="editSubjectModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form>
+                <div class="modal-header">
+                    <h4 class="modal-title">Sửa môn thi</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Mã môn</label>
+                        <input type="text" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Tên môn</label>
+                        <input type="text" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Số tín chỉ</label>
+                        <input type="text" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Học kỳ</label>
+                        <input type="text" class="form-control" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Hủy bỏ">
+                    <input type="submit" class="btn btn-info" value="Lưu">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Delete Modal HTML -->
+<div id="deleteSubjectModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form>
+                <div class="modal-header">
+                    <h4 class="modal-title">Xóa môn thi</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Bạn có chắc muốn xóa bản ghi này?</p>
+                    <p class="text-warning"><small>This action cannot be undone.</small></p>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Hủy bỏ">
+                    <input type="submit" class="btn btn-danger" value="Xóa">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="~/js/xlsx.full.min.js"></script>
+<script src="~/js/class.js"></script>
+
+
+
+
+
+
+
+

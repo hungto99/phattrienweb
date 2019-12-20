@@ -1,0 +1,79 @@
+﻿
+@{
+    ViewData["Title"] = "OldClass";
+    Layout = "~/Areas/Student/Views/Shared/StudentLayout.cshtml";
+}
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
+<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="~/lib/vendor/jquery/jquery.min.js"></script>
+@*table style*@
+<link rel="stylesheet" href="~/css/TableStyle.css" />
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("[data-toggle=tooltip]").tooltip();
+        //search items
+        $("#myinput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#oldClassTable tbody tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
+<div class="main">
+    <div class="form-group has-search">
+        <span class="fa fa-search form-control-feedback"></span>
+        <input type="text" class="form-control" placeholder="Tìm kiếm..." id="myinput">
+    </div>
+</div>
+<div class="container">
+
+    <div class="table-wrapper">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h2>Danh sách các lớp đã học</h2>
+                </div>
+            </div>
+        </div>
+        <table class="table table-striped table-hover" id="oldClassTable" style="text-align:center;">
+            <thead>
+                <tr>
+                    <th style="width:50px;">STT</th>
+                    <th style=" width:80px;">Danh sách lớp</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @ViewData["Data"]
+            </tbody>
+        </table>
+        @*<div class="clearfix">
+            <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
+            <ul class="pagination">
+                <li class="page-item disabled"><a href="#">Previous</a></li>
+                <li class="page-item"><a href="#" class="page-link">1</a></li>
+                <li class="page-item"><a href="#" class="page-link">2</a></li>
+                <li class="page-item active"><a href="#" class="page-link">3</a></li>
+                <li class="page-item"><a href="#" class="page-link">4</a></li>
+                <li class="page-item"><a href="#" class="page-link">5</a></li>
+                <li class="page-item"><a href="#" class="page-link">Next</a></li>
+            </ul>
+        </div>*@
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+

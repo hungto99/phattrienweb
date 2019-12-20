@@ -1,0 +1,167 @@
+﻿
+
+@{
+    ViewData["Title"] = "StudentTestExam";
+    Layout = "~/Areas/Admin/Views/Shared/AdminLayout.cshtml";
+}
+@using ExamReg_0._0.Models;
+@model List<Students>;
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
+<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="~/lib/vendor/jquery/jquery.min.js"></script>
+@*table style*@
+<link rel="stylesheet" href="~/css/TableStyle.css" />
+<style>
+    #subjectTable tbody tr {
+        display: inline-block;
+    }
+
+    #subjectTable tbody a {
+        width: 300px;
+        height: 100px;
+    }
+</style>
+<script type="text/javascript">
+    $(document).ready(function () {
+        // Activate tooltip
+        $('[data-toggle="tooltip"]').tooltip();
+
+        // Select/Deselect checkboxes
+        var checkbox = $('table tbody input[type="checkbox"]');
+        $("#selectAll").click(function () {
+            if (this.checked) {
+                checkbox.each(function () {
+                    this.checked = true;
+                });
+            } else {
+                checkbox.each(function () {
+                    this.checked = false;
+                });
+            }
+        });
+        checkbox.click(function () {
+            if (!this.checked) {
+                $("#selectAll").prop("checked", false);
+            }
+        });
+        $("#myinput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#studentTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+
+</script>
+<div class="main">
+    <div class="form-group has-search">
+        <span class="fa fa-search form-control-feedback"></span>
+        <input type="text" class="form-control" placeholder="Tìm kiếm..." id="myinput">
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="table-wrapper">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h2>Quản lý danh sách thi</h2>
+                </div>
+                <div class="col-sm-6">
+                    <a id="print" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i><span>In danh sách</span></a>
+          
+                </div>
+            </div>
+        </div>
+        <div id="getPrint">
+        <div style="display:flex">
+            <div style="position:relative; left:0px;">
+                <p><b>Tên Môn:  @ViewData["SubjectName"]</b> </p>
+                <p>Tổng Số thí sinh: @ViewData["ComputerCount"]</p>
+                
+            </div>
+            <div style="position:relative; left:300px; ">
+                <p>Ngày Thi: @ViewData["Date"]</p>
+                <p>Ca thi: @ViewData["ExamOrder"]</p>
+                <p>Địa Điểm Thi: @ViewData["RoomLocation"]</p>
+                <p> Phòng Thi: @ViewData["ClassOrder"]</p>
+            </div>
+
+        </div>
+        <table style="clear:both" class="table table-striped table-hover" id="listStudentTable" style="text-align:center;">
+            <thead>
+                <tr>
+                    <th fieldName="StudentClass" style="width:100px;">Mã Sinh Viên</th>
+                    <th fieldName="StudentName">Tên sinh viên</th>
+                    <th fieldName="examPeriodBegin">Giới Tính</th>
+                    <th fieldName="examPeriodEnd">Lớp</th>
+                    <th>Ngày Sinh</th>
+                    <th>Nơi Sinh</th>
+                </tr>
+            </thead>
+            <tbody>
+               @foreach(Students a  in Model)
+               {<tr>
+                    <td>@a.studentId</td>
+                    <td>@a.studentName</td>
+                    <td>@a.sex</td>
+                    <td>@a.studentClass</td>
+                    <td>@a.birthDay</td>
+                    <td>@a.bornPlace</td>
+                </tr>
+               }
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>
+<script>
+    $('#print').on('click', PrintElem);
+    function PrintElem() {
+    var mywindow = window.open('', 'PRINT', 'height=400,width=600');
+    var x = $('#getPrint')[0];
+    //var div1 = '<div style="display:flex">'+'<div style="position:relative; top:0px; left:0px">' +
+    //    '<p> Họ Và Tên: ' + Data["studentName"] + '</p>' +
+    //    '<p> Mã Số Sinh Viên: ' + Data["studentId"] + '</p>' +
+    //    '<p> Tên Lớp: ' + Data["studentClass"] + '</p>' +
+    //    '</div>' +
+    //    '<div style="position:relative; top:0px; left:300px">' +
+    //    '<p> Giới Tính: ' + Data["sex"] + '</p>' +
+    //    '<p> Nơi Sinh: ' + Data["birthDay"] + '</p>' +
+    //    '<p> Ngày Sinh: ' + Data["bornPlace"] + '</p>' +
+        
+    //    '</div>' +
+    //    '</div>'
+    var y = $('#ExamPeriodInfo #ExamsPeriod')[0].innerHTML;
+    mywindow.document.write('<html><head><title>' + document.title + '</title>');
+    mywindow.document.write('</head><body >');
+    mywindow.document.write('<style> table { border - collapse: collapse;} table, th, td {border: 1px solid black;} td:last-child,th:last-child{display: none;}</style>')
+    mywindow.document.write('<h1>' + "Danh sách sinh viên thi" + '</h1>');
+    mywindow.document.write('<h2> Kì Thi: ' + y + '</h2>')
+    //mywindow.document.write(div1);
+    //mywindow.document.write("<p> Họ và Tên:" + Data["studentName"]+"Mã Số Sinh Viên:" + Data["studentId"] +"</p>");
+    //mywindow.document.write("<span> Ngày Sinh:" + Data["bornPlace"] + "</span>");
+    //mywindow.document.write("<p> Lớp:" + Data["studentClass"] + "</p>");
+
+    mywindow.document.write('<div>'+x.outerHTML+'</div>');
+    mywindow.document.write('</body></html>');
+
+    mywindow.document.close(); // necessary for IE >= 10
+    mywindow.focus(); // necessary for IE >= 10*/
+
+    mywindow.print();
+    mywindow.close();
+
+    return true;
+}
+</script>
+
+
+
+
+
+
+
